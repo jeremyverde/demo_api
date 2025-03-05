@@ -6,4 +6,5 @@ services:
     ports: 
       - 8001:8000
     environment:
-      - log_level=debug
+      - log_level=DEBUG
+      - env=local-docker
