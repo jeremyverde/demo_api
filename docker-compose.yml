@@ -1,7 +1,6 @@
 services:
   api:
-    build:
-      context: .
+    image: demo-api:latest
     container_name: demo-api
     ports: 
       - 8001:8000
