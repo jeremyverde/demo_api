@@ -1,0 +1,9 @@
+services:
+  api:
+    build:
+      context: .
+    container_name: demo-api
+    ports: 
+      - 8001:8000
+    environment:
+      - log_level=debug
