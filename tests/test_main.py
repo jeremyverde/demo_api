@@ -5,7 +5,7 @@ import pytest
 from src.main import app
 from unittest.mock import MagicMock
 
-pytest_plugins = ('pytest_asyncio')
+pytest_plugins = "pytest_asyncio"
 
 client = TestClient(app)
 
