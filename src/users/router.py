@@ -17,7 +17,7 @@ router = APIRouter(tags=["users"])
 async def get_users() -> list[User]:
     users = await get_users_demo_db()
     return users
-  
+
 
 @router.post("/v1/users", status_code=status.HTTP_201_CREATED)
 async def create_users(users: list[CreateUser]) -> list[User]:
@@ -28,7 +28,7 @@ async def create_users(users: list[CreateUser]) -> list[User]:
 async def get_user_by_id(user_id: UUID) -> User:
     return await get_user_by_id_demo_db(user_id)
 
-  
+
 @router.delete("/v1/users/{user_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_user_by_id(user_id: UUID) -> None:
     return await delete_user_by_id_demo_db(user_id)
