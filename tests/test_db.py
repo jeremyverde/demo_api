@@ -13,6 +13,7 @@ from src.data.demo_db import (
     create_orders_demo_db,
     delete_user_by_id_demo_db,
     delete_order_by_id_demo_db,
+    get_orders_by_user_id_demo_db
 )
 
 
@@ -81,3 +82,11 @@ async def test_delete_order_by_id_demo_db():
     await delete_order_by_id_demo_db(order_id)
     order = await get_order_by_id_demo_db(order_id)
     assert order is None
+
+@pytest.mark.asyncio
+async def test_get_orders_by_user_id_demo_db():
+    user_id = UUID("be7c9d38-49f6-4970-b636-6ffa90bba41b")
+    orders = await get_orders_by_user_id_demo_db(user_id)
+    assert len(orders) == 1
+    assert orders[0].total == 123.45
+    assert orders[0].user == user_id
