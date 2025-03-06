@@ -89,3 +89,6 @@ async def delete_order_by_id_demo_db(id: UUID) -> None:
             order_table.remove(order)
             return None
     return None
+
+async def get_orders_by_user_id_demo_db(user_id: UUID) -> list[Order]:
+    return [Order(**order) for order in order_table if order["user"] == user_id]
