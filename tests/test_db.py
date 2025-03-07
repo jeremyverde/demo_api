@@ -1,8 +1,9 @@
 import pytest
 from datetime import datetime
-from uuid import UUID, uuid4
-from src.users.schemas import User, CreateUser
-from src.orders.schemas import Order, CreateOrder
+from uuid import UUID
+from src.users.schemas import CreateUser
+from src.orders.schemas import CreateOrder
+from src.data.demo_db import load_tables
 
 from src.data.demo_db import (
     get_users_demo_db,
@@ -17,17 +18,22 @@ from src.data.demo_db import (
 )
 
 
+@pytest.fixture(autouse=True)
+def reload_demo_db():
+    load_tables()
+
+
 @pytest.mark.asyncio
 async def test_get_users_demo_db():
     users = await get_users_demo_db()
-    assert len(users) == 1
-    assert users[0].name == "John Wick"
+    assert len(users) == 3
+    assert users[0].name == "Paul Sarone"
 
 
 @pytest.mark.asyncio
 async def test_get_orders_demo_db():
     orders = await get_orders_demo_db()
-    assert len(orders) == 1
+    assert len(orders) == 3
     assert orders[0].total == 811.19
 
 
@@ -36,7 +42,7 @@ async def test_get_user_by_id_demo_db():
     user_id = UUID("be7c9d38-49f6-4970-b636-6ffa90bba41b")
     user = await get_user_by_id_demo_db(user_id)
     assert user is not None
-    assert user.name == "John Wick"
+    assert user.name == "Paul Sarone"
 
 
 @pytest.mark.asyncio
@@ -90,6 +96,6 @@ async def test_delete_order_by_id_demo_db():
 async def test_get_orders_by_user_id_demo_db():
     user_id = UUID("be7c9d38-49f6-4970-b636-6ffa90bba41b")
     orders = await get_orders_by_user_id_demo_db(user_id)
-    assert len(orders) == 1
-    assert orders[0].total == 123.45
+    assert len(orders) == 2
+    assert orders[0].total == 811.19
     assert orders[0].user_id == user_id

@@ -1,12 +1,15 @@
 import pytest
+
 from fastapi.testclient import TestClient
+from pydantic import ValidationError
+from datetime import datetime
+from uuid import uuid4
 from unittest.mock import patch
+
 from src.main import app
 from src.users.schemas import User
 from src.orders.schemas import Order
-from datetime import datetime
-from uuid import uuid4
-from pydantic import ValidationError
+
 
 client = TestClient(app)
 
@@ -72,6 +75,7 @@ async def test_get_user_orders(mock_get_orders_by_user_id_demo_db):
     response_json = response.json()
     assert len(response_json) == 1
     assert response_json[0]["total"] == 811.19
+
 
 @pytest.mark.asyncio
 async def test_create_user_invalid_email():

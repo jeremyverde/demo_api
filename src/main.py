@@ -6,7 +6,7 @@ from src.settings import Settings
 from src.logger import logger
 from src.orders.router import router as orders_router
 from src.users.router import router as users_router
-from .schemas import TableOp, TableEnum, table_map
+from .schemas import TableEnum, table_map
 from .data.demo_db import join_tables
 from uuid import UUID
 
@@ -31,7 +31,6 @@ async def health_check():
 
 
 # requested endpoints
-# POST/add_record/{table}:Addsarecordtothespecifiedtable.
 @app.post("/v1/add_record/{table}", status_code=status.HTTP_201_CREATED)
 async def add_record(table: TableEnum, records: list[dict]):
     schema = table_map[table.value]["create_schema"]
@@ -41,7 +40,6 @@ async def add_record(table: TableEnum, records: list[dict]):
     return result
 
 
-# PUT/update_record/{table}/{record_id}:Updatesarecord.
 @app.put("/v1/update_record/{table}/{record_id}", status_code=status.HTTP_200_OK)
 async def update_record(
     table: TableEnum, record_id: UUID, record: dict, response: Response
@@ -56,7 +54,6 @@ async def update_record(
     return result
 
 
-# DELETE/delete_record/{table}/{record_id}:Deletesarecord.
 @app.delete(
     "/v1/delete_record/{table}/{record_id}", status_code=status.HTTP_204_NO_CONTENT
 )
@@ -71,12 +68,11 @@ async def delete_record(table: TableEnum, record_id: UUID):
     return
 
 
-# GET/join/{table1}/{table2}/{key}:Joinstwotablesbasedonagiven key.
 @app.get("/v1/join/{table1}/{table2}/{key}")
 async def join(table1: TableEnum, table2: TableEnum, key: str):
     logger.info(f"Joining {table1.value} and {table2.value} on {key}")
     records = await join_tables(
-        table_map[table1.value]["table_ref"], table_map[table1.value]["table_ref"], key
+        table_map[table1.value]["table_ref"], table_map[table2.value]["table_ref"], key
     )
     if records is None:
         logger.info(f"Error joining {table1.value} and {table2.value} on {key}")
