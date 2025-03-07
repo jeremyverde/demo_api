@@ -8,7 +8,7 @@ from src.data.demo_db import (
     get_user_by_id_demo_db,
     create_users_demo_db,
     delete_user_by_id_demo_db,
-    get_orders_by_user_id_demo_db
+    get_orders_by_user_id_demo_db,
 )
 
 
@@ -34,6 +34,7 @@ async def get_user_by_id(user_id: UUID) -> User:
 @router.delete("/v1/users/{user_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_user_by_id(user_id: UUID) -> None:
     return await delete_user_by_id_demo_db(user_id)
+
 
 @router.get("/v1/users/{user_id}/orders")
 async def get_user_orders(user_id: UUID) -> list[Order]:
