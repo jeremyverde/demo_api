@@ -1,8 +1,6 @@
 import pandas as pd
-import json
 
 from uuid import UUID
-from datetime import datetime
 
 from src.users.schemas import User, CreateUser
 from src.orders.schemas import Order, CreateOrder
@@ -23,17 +21,14 @@ load_tables()
 
 
 async def get_users_demo_db() -> list[User]:
-    global USERS
     return USERS
 
 
 async def get_orders_demo_db() -> list[Order]:
-    global ORDERS
     return ORDERS
 
 
 async def get_user_by_id_demo_db(id: UUID) -> User:
-    global USERS
     for user in USERS:
         if user.user_id == id:
             return user
@@ -41,7 +36,6 @@ async def get_user_by_id_demo_db(id: UUID) -> User:
 
 
 async def get_order_by_id_demo_db(id: UUID) -> Order:
-    global ORDERS
     for order in ORDERS:
         if order.order_id == id:
             return order
@@ -50,30 +44,32 @@ async def get_order_by_id_demo_db(id: UUID) -> Order:
 
 async def update_user_by_id_demo_db(id: UUID, user: CreateUser) -> User:
     global USERS
-    for db_user in USERS:
+    for i in range(len(USERS)):
+        db_user = USERS[i]
         if db_user.user_id == id:
-            db_user = User(
+            USERS[i] = User(
                 user_id=db_user.user_id,
                 name=user.name,
                 email=user.email,
                 active=db_user.active,
             )
-            return db_user
+            return USERS[i]
     return None
 
 
 async def update_order_by_id_demo_db(id: UUID, order: CreateOrder) -> Order:
     global ORDERS
-    for db_order in ORDERS:
+    for i in range(len(ORDERS)):
+        db_order = ORDERS[i]
         if db_order.order_id == id:
-            db_order = Order(
+            ORDERS[i] = Order(
                 order_id=db_order.order_id,
                 date=order.date,
                 user_id=order.user_id,
                 total=order.total,
             )
             logger.info(f"updated order: {db_order}")
-            return db_order
+            return ORDERS[i]
     return None
 
 
@@ -126,7 +122,6 @@ async def delete_order_by_id_demo_db(id: UUID) -> None:
 
 
 async def get_orders_by_user_id_demo_db(user_id: UUID) -> list[Order]:
-    global ORDERS
     return [order for order in ORDERS if order.user_id == user_id]
 
 
