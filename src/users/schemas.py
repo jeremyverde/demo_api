@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field  # , ConfigDict, AliasChoices
+from pydantic import BaseModel, Field, EmailStr  # , ConfigDict, AliasChoices
 
 # from pydantic.alias_generators import to_camel
 # uncomment and reference for db model
@@ -7,9 +7,9 @@ from uuid import UUID, uuid4
 
 
 class User(BaseModel):
-    id: UUID = Field(default_factory=uuid4)
+    user_id: UUID = Field(default_factory=uuid4)
     name: str = Field(description="user's full name")
-    email: str = Field(description="user's email address")
+    email: EmailStr = Field(description="user's email address")
     active: bool = Field(description="user's current state", default=True)
 
 
