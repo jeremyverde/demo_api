@@ -1,26 +1,21 @@
 from fastapi.testclient import TestClient
-import asyncio
+from pydantic import ValidationError
+
 import pytest
 
 from src.main import app
-from uuid import uuid4, UUID
+from uuid import uuid4
 from src.main import app, SETTINGS
-from src.data.demo_db import user_table as ut, order_table as ot
-import importlib
-
-from pydantic import ValidationError
-
+from src.data.demo_db import load_tables
 
 pytest_plugins = "pytest_asyncio"
 
 client = TestClient(app)
 
 
-@pytest.fixture(scope="module", autouse=True)
+@pytest.fixture(autouse=True)
 def reload_demo_db():
-    import src.data.demo_db
-
-    importlib.reload(src.data.demo_db)
+    load_tables()
 
 
 @pytest.mark.asyncio
@@ -115,6 +110,7 @@ async def test_join_tables_miss():
     response = client.get(f"/v1/join/{table1}/{table2}/{key}")
     assert response.status_code == 200
     assert response.json() is None
+
 
 @pytest.mark.asyncio
 async def test_add_record_invalid_table():

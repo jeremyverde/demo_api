@@ -1,6 +1,5 @@
 from fastapi import APIRouter, status
 from uuid import UUID
-from typing import Optional
 from .schemas import Order, CreateOrder
 from src.data.demo_db import (
     get_orders_demo_db,

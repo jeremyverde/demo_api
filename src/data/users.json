@@ -1,0 +1,20 @@
+[
+    {
+        "user_id": "be7c9d38-49f6-4970-b636-6ffa90bba41b",
+        "name": "Paul Sarone",
+        "email": "paul@boatrides.com",
+        "active": true
+    },
+    {
+        "user_id": "a3d8f536-eb8b-4ef7-909e-109319353485",
+        "name": "Terri Flores",
+        "email": "terri@boatrides.com",
+        "active": true
+    },
+    {
+        "user_id": "19de0396-c8d6-4d39-aa7f-5a20aed30937",
+        "name": "Gary Dixon",
+        "email": "gary@boatrides.com",
+        "active": true
+    }
+]

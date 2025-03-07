@@ -1,8 +1,5 @@
-from pydantic import BaseModel, Field, EmailStr  # , ConfigDict, AliasChoices
+from pydantic import BaseModel, Field, EmailStr
 
-# from pydantic.alias_generators import to_camel
-# uncomment and reference for db model
-from typing import Optional
 from uuid import UUID, uuid4
 
 

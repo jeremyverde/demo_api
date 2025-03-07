@@ -1,10 +1,12 @@
 import pytest
+
 from fastapi.testclient import TestClient
+from uuid import uuid4
 from datetime import datetime
 from unittest.mock import patch
+
 from src.main import app
 from src.orders.schemas import Order
-from uuid import uuid4
 
 
 client = TestClient(app)
